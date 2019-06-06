@@ -1,2 +1,2 @@
 
-web: flask db upgrade; flask translate compile; gunicorn stock-price-with-stripe:run.py
+web: flask db upgrade; flask translate compile; gunicorn run.py:app
