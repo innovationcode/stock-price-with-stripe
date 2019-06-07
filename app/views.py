@@ -94,7 +94,7 @@ def pay():
         if update_this:
             update_this.premium_user = True
             db.session.commit()
-            flash('Congratulations, updated as premium_user!')
+            #flash('Congratulations, updated as premium_user!')
 
         return render_template('premium_response.html', current_user = update_this.username)
 
