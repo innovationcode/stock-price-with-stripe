@@ -111,6 +111,12 @@ def pay():
 
         return render_template('premium_response.html', current_user = update_this.username)
 
+@login_required
+@app.route('/dashboard')
+def dashboard():
+    render_template('dashapp.html')
+
+
 
 ############################### Google-Login route ##############################################
 ################################ Github-Login route ############################################# 
