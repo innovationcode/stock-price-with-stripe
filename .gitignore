@@ -1,1 +1,6 @@
 flask
+
+
+.env
+
+config.py

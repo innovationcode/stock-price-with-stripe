@@ -9,6 +9,8 @@ from flask import request
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 import stripe
+from config import Config
+
 
 ######################### BASIC ROUTE '/' AND '/INDEX'##############################
 @app.route('/')
@@ -73,9 +75,11 @@ def premium():
         return render_template('premium_update_form.html', pub_key = pub_key)
 
 ######################### STRIPE-PAYMENT-ACCEPT ROUTE to accept payment to update free-user to premium-user
-pub_key = 'pk_test_lGXe3xx2KfcxVMohkNhLQLzn00f0OXjTw8'
-secret_key = 'sk_test_lKL5mpbIp5XQh3X750dAA8yr00laScgXRm'
+
+pub_key = Config.STRIPE_PUB_KEY
+secret_key = Config.STRIPE_SECRET_KEY
 stripe.api_key = secret_key
+
 @login_required
 @app.route('/pay', methods = ['POST'])
 def pay():
