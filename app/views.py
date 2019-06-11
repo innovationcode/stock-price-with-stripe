@@ -10,7 +10,7 @@ from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 import stripe
 from config import Config
-
+from flask_dance.contrib.github import make_github_blueprint, github
 
 ######################### BASIC ROUTE '/' AND '/INDEX'##############################
 @app.route('/')
@@ -103,7 +103,23 @@ def pay():
         return render_template('premium_response.html', current_user = update_this.username)
 
 ############################### Google-Login route ##############################################
+
+
 ################################ Github-Login route ############################################# 
+github_blueprint = make_github_blueprint(client_id = Config.GITHUB_CLIENT_ID, client_secret = Config.GITHUB_CLIENT_SECRET)
+app.register_blueprint(github_blueprint, url_prefix = '/github_login')
+@app.route('/github')
+def github_login():
+    if not github.authorized:
+        return redirect(url_for('github.login'))
+    account_info = github.get('/user')
+
+    if account_info.ok:
+        account_info_json = account_info.json()
+
+        return '<h1> Your gihub name is {}'.format(account_info_json['login'])
+    return '<h1>Request failed'
+
 ################################ Twitter-Login route ############################################
 ############################### FORGOT-Password route ##############################################
 ############################### NEW---Password-setting###########################################

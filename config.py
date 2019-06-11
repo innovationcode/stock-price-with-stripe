@@ -1,5 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
@@ -12,3 +14,12 @@ class Config(object):
 
     STRIPE_PUB_KEY = 'pk_test_lGXe3xx2KfcxVMohkNhLQLzn00f0OXjTw8'
     STRIPE_SECRET_KEY = 'sk_test_lKL5mpbIp5XQh3X750dAA8yr00laScgXRm'
+
+    GITHUB_CLIENT_ID = '791581e9ffc8f28c4ca5'
+    GITHUB_CLIENT_SECRET = '416371fc9da3849a8108279e4d2f0ec23f8bf816'
+
+    GOOGLE_ = ''
+    GOOGLE_ = ''
+
+    TWITTER_ = ''
+    TWITTER_ = ''
