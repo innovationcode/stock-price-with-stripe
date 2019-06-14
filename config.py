@@ -18,8 +18,8 @@ class Config(object):
     GITHUB_CLIENT_ID = '791581e9ffc8f28c4ca5'
     GITHUB_CLIENT_SECRET = '416371fc9da3849a8108279e4d2f0ec23f8bf816'
 
-    GOOGLE_ = ''
-    GOOGLE_ = ''
+    GOOGLE_CLIENT_ID = '903410342783-tkq7ou8hcj2imb6vnbsd3qujmo2up5o2.apps.googleusercontent.com'
+    GOOGLE_CLIENT_SECRET = '8QY_uP1Jc6aAmgin4T1gaFsD'
 
     TWITTER_ = ''
     TWITTER_ = ''

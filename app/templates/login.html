@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
+    <h2>Sign In</h2>
     <form action="" method="post" novalidate>
+        
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
@@ -11,6 +12,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        
         <p>
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}<br>
@@ -22,10 +24,10 @@
         <p>{{ form.submit() }}</p>
         
         <a href="#" class="fa fa-twitter"></a>
-        <a href="#" class="fa fa-google"></a>
-        <a href="{{ url_for('github.login') }}" class="fa fa-github"></a>
+        <a href="{{ url_for('google.login') }}" class="fa fa-google"></a>
+        <a href="{{ url_for('github_login') }}" class="fa fa-github"></a>
 
         <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
-
+        
     </form>
 {% endblock %}

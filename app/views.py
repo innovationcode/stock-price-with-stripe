@@ -1,22 +1,21 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm
-from flask_login import current_user, login_user
-from app.models import User
-from flask_login import logout_user
-from flask_login import login_required
-from flask import request
+from flask_login import current_user, login_user, logout_user, login_required, login_manager
+from app.models import User, OAuth
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 import stripe
 from config import Config
 from flask_dance.contrib.github import make_github_blueprint, github
+from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 
-
-######################### BASIC ROUTE '/' AND '/INDEX'##############################
+######################## BASIC ROUTE '/' AND '/INDEX'##############################
 @app.route('/')
 @app.route('/index')
 def index():
+    print("HOME PAGE..............")
     return render_template('index.html', title='Home Page')
 
 ########################## REGISTER ###########################
@@ -104,27 +103,65 @@ def pay():
         return render_template('premium_response.html', current_user = update_this.username)
 
 ############################### Google-Login route ##############################################
+google_blueprint = make_google_blueprint(
+                                        client_id = Config.GITHUB_CLIENT_ID,
+                                        client_secret= Config.GITHUB_CLIENT_SECRET)
+app.register_blueprint(google_blueprint, url_prefix="/google.login")
+
+@app.route('/google.login')
+def google_login():
+    print("INSIDE GOOGLE LINK ROUTE.............")
+
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+    resp = google.get("/plus/v1/people/me")
+    assert resp.ok, resp.text
+    return "You are {email} on Google".format(email=resp.json()["emails"][0]["value"])
+
 
 
 ################################ Github-Login route ############################################# 
-github_blueprint = make_github_blueprint(client_id = Config.GITHUB_CLIENT_ID, client_secret = Config.GITHUB_CLIENT_SECRET)
-#app.register_blueprint(github_blueprint, url_prefix = '/github.login')
-app.register_blueprint(github_blueprint, url_prefix="/login")
+github_blueprint = make_github_blueprint(client_id = Config.GITHUB_CLIENT_ID, 
+                                         client_secret = Config.GITHUB_CLIENT_SECRET)
+app.register_blueprint(github_blueprint, url_prefix="/github.login")
 
-
-@app.route('/github')
+@app.route('/github_login')
 def github_login():
+    print("INSIDE GITHUB LINK ROUTE.............")
     if not github.authorized:
+        print("NOT AUTHORIZED")
+        print("#####", github)
         return redirect(url_for('github.login'))
         
-    account_info = github.get('/user')
-
-    if account_info.ok:
-        print("YES ........................................DONE")
-        account_info_json = account_info.json()
-
-        return '<h1>GITHUB  DONE</h1>'
+    github_user = github.get('/user')
+    print("GITHB SUCCESS...........")
+    
+    if github_user:
+        print("YES ..............DONE")
+        return '<h1>YES ........ GITHUB AUTHORISED USER</h1>'
     return '<h1>Request failed'
+
+################################## GITHUB REDIRECT-URI #############
+github_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
+
+
+
+@app.route('/ld/github/authorized')
+def github2():
+    
+
+
+    return redirect(url_for('herokuapp'))
+
+
+
+
+
+
+
+
+
+
 
 ################################ Twitter-Login route ############################################
 ############################### FORGOT-Password route ##############################################
