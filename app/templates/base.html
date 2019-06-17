@@ -7,6 +7,9 @@
         <link rel="stylesheet" type="text/css" href="style.css">
 
         <style>
+                body {
+                    background: url(https://maharashtratimes.indiatimes.com/photo/27975912.cms) #e5e5e5;
+                }
                 .fa {
                     padding: 14px;
                     font-size: 30px;
@@ -88,18 +91,19 @@
                     </div>
             </nav>
           
-
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
+        
+            <hr>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        
         
         <div>
             <br/></br>

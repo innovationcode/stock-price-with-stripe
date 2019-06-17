@@ -127,30 +127,18 @@ app.register_blueprint(github_blueprint, url_prefix="/github.login")
 
 @app.route('/github_login')
 def github_login():
-    print("INSIDE GITHUB LINK ROUTE.............")
+    print("INSIDE GITHUB LINK ROUTE.............")     
     if not github.authorized:
-        print("NOT AUTHORIZED")
-        print("#####", github)
-        return redirect(url_for('github.login'))
-        
-    github_user = github.get('/user')
-    print("GITHB SUCCESS...........")
-    
-    if github_user:
-        print("YES ..............DONE")
-        return '<h1>YES ........ GITHUB AUTHORISED USER</h1>'
-    return '<h1>Request failed'
+        return redirect(url_for("github.login"))
+    resp = github.get("/user")
+    print("GITHUB AUTHORISATION ....... : ",resp)
+    assert resp.ok
+    return "You are @{login} on GitHub".format(login=resp.json()["login"])
 
 ################################## GITHUB REDIRECT-URI #############
 github_blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
-
-
-
 @app.route('/ld/github/authorized')
 def github2():
-    
-
-
     return redirect(url_for('herokuapp'))
 
 
