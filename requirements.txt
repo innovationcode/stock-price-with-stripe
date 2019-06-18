@@ -46,7 +46,8 @@ WTForms==2.2.1
 stripe==2.12.0
 flask-dance[sqla]>=1.4.0
 flask-bootstrap
-
+Flask-Mail==0.9.1         # via flask-security
+PyJWT==1.4.0
 
 
 
