@@ -23,3 +23,6 @@ class Config(object):
 
     TWITTER_ = ''
     TWITTER_ = ''
+
+    #password RESET
+    ADMINS = ['lina.patel@rediffmail.com']
