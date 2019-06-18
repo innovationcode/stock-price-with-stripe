@@ -11,6 +11,15 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+
+#password RESET
+app.config['MAIL_SERVER']
+app.config['MAIL_PORT'] 
+app.config['MAIL_USE_TLS']
+app.config['MAIL_USERNAME']
+app.config['MAIL_PASSWORD'] 
+print(app.config['MAIL_USERNAME'])
 mail = Mail(app)
 
 app.wsgi_app = ProxyFix(app.wsgi_app)

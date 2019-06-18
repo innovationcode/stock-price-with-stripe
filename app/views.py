@@ -12,7 +12,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 
 #Password RESET
-from app.forms import ResetPasswordRequestForm
+from app.forms import ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])

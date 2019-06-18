@@ -25,4 +25,9 @@ class Config(object):
     TWITTER_ = ''
 
     #password RESET
-    ADMINS = ['lina.patel@rediffmail.com']
+    ADMINS = ['for.stock.price.app@gmail.com']
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = 'for.stock.price.app@gmail.com'
+    MAIL_PASSWORD = 'Test12345#'

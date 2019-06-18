@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
             id = jwt.decode(token, app.config['SECRET_KEY'],
                             algorithms=['HS256'])['reset_password']
         except:
-            return
+            return None
         return User.query.get(id)
 
 class OAuth(OAuthConsumerMixin, db.Model):
