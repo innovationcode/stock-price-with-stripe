@@ -1,6 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
 
 
 class Config(object):
@@ -18,8 +19,8 @@ class Config(object):
     GITHUB_CLIENT_ID = '791581e9ffc8f28c4ca5'
     GITHUB_CLIENT_SECRET = '416371fc9da3849a8108279e4d2f0ec23f8bf816'
 
-    GOOGLE_CLIENT_ID = '903410342783-tkq7ou8hcj2imb6vnbsd3qujmo2up5o2.apps.googleusercontent.com'
-    GOOGLE_CLIENT_SECRET = '8QY_uP1Jc6aAmgin4T1gaFsD'
+    GOOGLE_CLIENT_ID = '920022595490-c9011bt35dg0seaulgjjuvvo9bvs0meo.apps.googleusercontent.com'
+    GOOGLE_CLIENT_SECRET = 'HYVl6M8EcdIk41lG1xwWA4Gn'
 
     TWITTER_ = ''
     TWITTER_ = ''

@@ -46,14 +46,15 @@
                 .col{
                     margin : 3%;
                 }
+                
         </style>
     </head>
     
     <body>
-        <div class="container">
-            <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md" style="background-color: gray;">
+        <div class="container-fluid">
+            <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md sticky-top" style="background-color: rgb(120, 122, 134);">
                     <a class="navbar-brand" href="{{ url_for('index') }}">
-                        <h1 style = "color:goldenrod; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Stock-Price</h1>
+                        <h1 style = "color:white; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Stock-Price</h1>
                     </a>
                     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
                           <span class="navbar-toggler-icon" style="background-color: gray"></span>
@@ -87,9 +88,10 @@
                         </ul>
                     </div>
             </nav>
-          
         
-            <hr>
+        <div class = "container">  
+            <p></p>
+            
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul>
@@ -199,16 +201,16 @@
                         </div>
                 </div>
         </section> <!--Section Team end-->
-        
+        </div> <!--Container class div end-->
 
         <footer class="footer">
             &copy; Copyright 2019 <br />
         </footer>
 
         
-
+    
         
-        </div>
+        </div> <!--Container-fluid class div end-->
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
