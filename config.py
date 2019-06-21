@@ -22,8 +22,8 @@ class Config(object):
     GOOGLE_CLIENT_ID = '920022595490-c9011bt35dg0seaulgjjuvvo9bvs0meo.apps.googleusercontent.com'
     GOOGLE_CLIENT_SECRET = 'HYVl6M8EcdIk41lG1xwWA4Gn'
 
-    TWITTER_ = ''
-    TWITTER_ = ''
+    TWITTER_API_KEY = ''
+    TWITTER_API_SECRET = ''
 
     #password RESET
     ADMINS = ['for.stock.price.app@gmail.com']

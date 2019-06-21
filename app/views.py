@@ -9,6 +9,7 @@ import stripe
 from config import Config
 from flask_dance.contrib.github import make_github_blueprint, github
 from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -93,6 +94,10 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+######################### LOGOUT ##############################
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 ####################### Route for logged-in user to see basic stock-price-info
 @login_required
@@ -205,34 +210,37 @@ def github_url():
         next_page = url_for('index')
         return redirect(url_for('herokuapp'))
 
+############################# Twitter-Login route ############################################
+twitter_blueprint = make_twitter_blueprint(api_key = Config.TWITTER_API_KEY,
+                                           api_secret= Config.TWITTER_API_SECRET,
+                                           redirect_to='twitter_url')
+app.register_blueprint(twitter_blueprint, url_prefix="/twitter_login")
 
+@app.route('/twitter_url')
+def twitter_url():
+    print("INSIDE TWITTER LINK ROUTE.............")
+    if not twitter.authorized:
+        return redirect(url_for("twitter.login"))
+    resp = twitter.get('account/settings.json')
+    print("TWITTER AUTHORISATION IN >>>>>>....... : ",resp)
+    assert resp.ok
+    print("TWITTER C  : ",resp.json()['screen_name'])
 
+    twitter_user = resp.json()['screen_name']
+    query = User.query.filter_by(username = twitter_user)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-################################ Twitter-Login route ############################################
-############################### FORGOT-Password route ##############################################
-############################### NEW---Password-setting###########################################
+    try:
+        user = query.one()
+    except NoResultFound:
+        user = User(username = twitter_user)
+        db.session.add(user)
+        db.session.commit()
+    
+    login_user(user)
+    next_page = request.args.get('next')
+    if not next_page or url_parse(next_page).netloc != '':
+        next_page = url_for('index')
+        return redirect(url_for('herokuapp'))
  
 
 
