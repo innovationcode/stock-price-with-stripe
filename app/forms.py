@@ -43,9 +43,9 @@ class ResetPasswordForm(FlaskForm):
 
 #Contact-us FORM
 class ContactForm(FlaskForm):
-    name = TextField("Name")
-    email = TextField("Email")
-    subject = TextField("Subject")
-    message = TextAreaField("Message")
+    name = TextField("Name", validators=[DataRequired()])
+    email = TextField("Email", validators=[DataRequired(), Email()])
+    subject = TextField("Subject", validators=[DataRequired()])
+    message = TextAreaField("Message", validators=[DataRequired()])
     submit = SubmitField("Send")
 

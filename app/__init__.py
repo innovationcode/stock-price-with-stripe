@@ -19,6 +19,8 @@ app.config['MAIL_PORT']
 app.config['MAIL_USE_TLS']
 app.config['MAIL_USERNAME']
 app.config['MAIL_PASSWORD'] 
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 app.wsgi_app = ProxyFix(app.wsgi_app)

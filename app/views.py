@@ -14,7 +14,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 #Password RESET
 from app.forms import ResetPasswordRequestForm, ResetPasswordForm
-from app.email import send_password_reset_email
+from app.email import send_password_reset_email, Message, mail
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
@@ -242,7 +242,18 @@ def twitter_url():
 def contact():
     form = ContactForm()
     if request.method == 'POST':
-        return 'FORM POSTED'
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('contact.html', form = form)
+        else:
+            msg = Message(form.subject.data, sender = 'contact@example.com', recipients = [Config.MAIL_USERNAME])
+            
+            msg.body = """
+                        From: %s <%s> %s
+                       """ % (form.name.data, form.email.data, form.message.data)
+            mail.send(msg)
+            return 'FORM POSTED'
+
     elif request.method == 'GET':
         return render_template('contact.html', form = form)
 
