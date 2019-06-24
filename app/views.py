@@ -252,7 +252,7 @@ def contact():
                         From: %s <%s> %s
                        """ % (form.name.data, form.email.data, form.message.data)
             mail.send(msg)
-            return 'FORM POSTED'
+            return render_template('contact.html', success=True)
 
     elif request.method == 'GET':
         return render_template('contact.html', form = form)
