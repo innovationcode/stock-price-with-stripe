@@ -3,9 +3,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class = "container-fluid" style = "position: relative;
-                  text-align: center;">
-            <h3 style = "font-size:60px; font-weight:600;">Contact-page updates going on</h3>
+    <div>
+        <h2>Contact</h2>
+        <form action = "{{ url_for('contact') }}" method = post>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.name.label }}<br>
+                {{ form.name(size=40) }}
+            </p>
+            <p>
+                {{ form.email.label }}<br>
+                {{ form.email(size=67) }}
+            </p>
+            <p>
+                {{ form.subject.label }}<br>
+                {{ form.subject(size=67) }}
+            </p>
+            <p>
+                {{ form.message.label }}<br>
+                {{ form.message(cols="65", rows="10") }}
+            </p>
+            <p>
+                {{ form.submit }}<br>
+            </p>
+        </form>
     </div>
-    
 {% endblock %}

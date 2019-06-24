@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div>
+    <div style = "position: relative;
+                  text-align: center;">
         <h1>Premium-User</h1>
         <p> $39.99/month</p>
         <form action="{{ url_for('pay') }}" method="POST">

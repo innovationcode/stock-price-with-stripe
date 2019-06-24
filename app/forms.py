@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, TextField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
+
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -38,3 +39,13 @@ class ResetPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
+
+
+#Contact-us FORM
+class ContactForm(FlaskForm):
+    name = TextField("Name")
+    email = TextField("Email")
+    subject = TextField("Subject")
+    message = TextAreaField("Message")
+    submit = SubmitField("Send")
+

@@ -1,10 +1,9 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm, ContactForm
 from flask_login import current_user, login_user, logout_user, login_required, login_manager
 from app.models import User, OAuth
 from werkzeug.urls import url_parse
-from app.forms import RegistrationForm
 import stripe
 from config import Config
 from flask_dance.contrib.github import make_github_blueprint, github
@@ -94,10 +93,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-######################### LOGOUT ##############################
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 ####################### Route for logged-in user to see basic stock-price-info
 @login_required
@@ -242,6 +237,15 @@ def twitter_url():
         next_page = url_for('index')
         return redirect(url_for('herokuapp'))
  
+###################### Contact route ###################################
+@app.route('/contact', methods = ['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if request.method == 'POST':
+        return 'FORM POSTED'
+    elif request.method == 'GET':
+        return render_template('contact.html', form = form)
+
 
 
 
