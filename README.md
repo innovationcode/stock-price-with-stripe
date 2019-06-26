@@ -75,46 +75,52 @@ All server routes located within app directory- views.py
 -------------------------------------------------------------------
 
 ## Flask and Flask-extensions 
-[Flask Documentation](http://flask.pocoo.org/docs/)
 
-These are the listed Flask-extensions used in this project
-- `Flask-login` - Flask-Login provides user session management for Flask. It handles the common tasks of logging in, logging out, and remembering your users' sessions over extended periods of time.
-- `Flask-sqlchamy` - 
-- `Flask-mail` - 
-- `Flask-dance` - 
+[Flask Documentation](http://flask.pocoo.org/docs/)
+Flask is often referred to as a micro framework, because a core functionality includes WSGI and routing based on Werkzeug and template engine based on Jinja2. In addition, Flask framework has support for cookie and sessions as well as web helpers like JSON, static files etc. Obviously, this is not enough for the development of a full-fledged web application.
+There are a large number of Flask extensions available. A Flask extension is a Python module, which adds specific type of support to the Flask application.
 
 [Flask Extensions](http://flask.pocoo.org/extensions/)
-
+These are the listed Flask-extensions used in this project
+- `Flask-login` - Flask-Login provides user session management for Flask. It handles the common tasks of logging in, logging out, and remembering your users' sessions over extended periods of time.
+- `Flask-migrate` - Flask-Migrate is an extension that handles SQLAlchemy database migrations for Flask applications using Alembic.
+- `Flask-sqlchamy` - SQLAlchemy is the Python SQL toolkit and the Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+- `Flask-mail` - A web based application is often required to have a feature of sending mail to the users/clients. Flask-Mail extension makes it very easy to set up a simple interface with any email server.
+- `Flask-dance` - Flask-Dance is an approved extension that allows developers to build Flask-based apps to allow users to authenticate via OAuth protocol.  
 ## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a config.py(DON'T FORGET TO ADD IT TO `.gitignore`) file that includes the following:
 
-    * SECRET_KEY
-    * SQLALCHEMY_DATABASE_URI
-    * SQLALCHEMY_TRACK_MODIFICATIONS = False
-    * LOG_TO_STDOUT 
+### config.py
+- import os
+- basedir = os.path.abspath(os.path.dirname(__file__))
+- class Config(object):
+    - SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
+    - SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \ 'sqlite:///' + os.path.join(basedir, 'app.db')
+    - SQLALCHEMY_TRACK_MODIFICATIONS = False
+    - LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
+    
+    - STRIPE_PUB_KEY `this is generated in the Stripe dashboard`
+    - STRIPE_SECRET_KEY `this is generated in the Stripe dashboard`
 
-    * STRIPE_PUB_KEY `this is generated in the Stripe dashboard`
-    * STRIPE_SECRET_KEY `this is generated in the Stripe dashboard`
+    - GITHUB_CLIENT_ID  = `github developer key`
+    - GITHUB_CLIENT_SECRET = `github developer key`
 
-    * GITHUB_CLIENT_ID 
-    * GITHUB_CLIENT_SECRET
+    - GOOGLE_CLIENT_ID = `google developer key`
+    - GOOGLE_CLIENT_SECRET = `google developer key`
 
-    * GOOGLE_CLIENT_ID
-    * GOOGLE_CLIENT_SECRET
+    - TWITTER_API_KEY = `twitter developer key`
+    - TWITTER_API_SECRET  = `twitter developer key`
 
-    * TWITTER_ 
-    * TWITTER_ 
- 
-    * ADMINS 
-    * MAIL_SERVER
-    * MAIL_PORT 
-    * MAIL_USE_TLS
-    * MAIL_USERNAME 
-    * MAIL_PASSWORD
+    - ADMINS = ['your-email@example.com']
+    - MAIL_SERVER = `smtp.gmail.com`
+    - MAIL_PORT =  587
+    - MAIL_USE_TLS = True
+    - MAIL_USERNAME = `'you@google.com`
+    - MAIL_PASSWORD = `GooglePasswordHere`
     
 
-See [Data Science](🚫link to your DS readme here) for details on the fronend of our project.
+See [Data Science](https://github.com/labs13-stock-price/data-science) for details on the fronend of our project.
 
