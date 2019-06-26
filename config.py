@@ -31,4 +31,4 @@ class Config(object):
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'for.stock.price.app@gmail.com'
-    MAIL_PASSWORD = 'Test12345#'
+    MAIL_PASSWORD = 'Thisisforstockprice_labs13'

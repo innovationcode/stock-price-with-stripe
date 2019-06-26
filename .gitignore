@@ -4,4 +4,4 @@ env
 
 .env
 
-config.py
+/config.py
