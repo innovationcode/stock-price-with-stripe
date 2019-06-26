@@ -16,37 +16,6 @@ from sqlalchemy.orm.exc import NoResultFound
 from app.forms import ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email, Message, mail
 
-@app.route('/reset_password_request', methods=['GET', 'POST'])
-def reset_password_request():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = ResetPasswordRequestForm()
-    print("############### RESET PASSWORD REQUEST   ",form.email.data)
-    if form.validate_on_submit():
-        print("EMAIL FOR RESETING PASSWORD ... :  ",form.email.data)
-        user = User.query.filter_by(email=form.email.data).first()
-        if user:
-            send_password_reset_email(user) 
-            print("EMAIL FOR RESETING PASSWORD ... :  ",form.email.data)
-            flash('Check your email for the instructions to reset your password')
-        return redirect(url_for('login'))
-    return render_template('reset_password_request.html',
-                           title='Reset Password', form=form)
-
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
-def reset_password(token):
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    user = User.verify_reset_password_token(token)
-    if not user:
-        return redirect(url_for('index'))
-    form = ResetPasswordForm()
-    if form.validate_on_submit():
-        user.set_password(form.password.data)
-        db.session.commit()
-        flash('Your password has been reset.')
-        return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
 ######################## BASIC ROUTE '/' AND '/INDEX'##############################
 @app.route('/')
 @app.route('/index')
@@ -86,6 +55,39 @@ def login():
             next_page = url_for('index')
         return redirect(url_for('herokuapp'))
     return render_template('login.html', title='Sign In', form=form)
+
+######################## RESET PASSWORD #######################
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    print("############### RESET PASSWORD REQUEST   ",form.email.data)
+    if form.validate_on_submit():
+        print("EMAIL FOR RESETING PASSWORD ... :  ",form.email.data)
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user) 
+            print("EMAIL FOR RESETING PASSWORD ... :  ",form.email.data)
+            flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 ######################### LOGOUT ##############################
 @app.route('/logout')
