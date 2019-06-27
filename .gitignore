@@ -1,7 +1,11 @@
-flask
+
 
 env
 
 .env
+
+
+flask
+
 
 /config.py
